@@ -75,7 +75,7 @@ func transformTag(tag string, modificator string) string {
 }
 
 func GetTagsAndModsRegexp() *regexp.Regexp {
-	return regexp.MustCompile(`\[\s*(?:[a-zA-Z0-9]*)\s*(?:\|\s*[a-zA-Z]*\s*)?\s*]`)
+	return regexp.MustCompile(`\[\s*(?:[a-zA-Z0-9]{1,})\s*(?:\|\s*[a-zA-Z]{1,}\s*)?\s*]`)
 }
 
 func TransformString(value string, mappings TagMappings) string {
