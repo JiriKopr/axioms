@@ -1,0 +1,3 @@
+axioms
+templates/**
+!templates/**/.gitkeep
