@@ -1,7 +1,6 @@
 package structure
 
 import (
-	. "axioms/mappings"
 	. "axioms/node"
 	. "axioms/utils"
 	"bufio"

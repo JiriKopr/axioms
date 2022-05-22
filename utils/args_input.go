@@ -4,10 +4,51 @@ import (
 	"fmt"
 	"os"
 	"strings"
+	"sync"
 )
 
+var lock = &sync.Mutex{}
+
+type ArgsIndexes struct {
+	Command  int
+	Template int
+	Target   int
+	Tags     int
+}
+
+var instance *ArgsIndexes
+
+func GetArgsIndexesInstance() *ArgsIndexes {
+	if instance == nil {
+
+		// Lock rutines
+		lock.Lock()
+		defer lock.Unlock()
+
+		// Check again if some rutine didn't create instance in the mean time
+		if instance == nil {
+			// axioms list     template
+			// axioms generate template target tags
+			command := 1
+			template := command + 1
+			target := template + 1
+			tags := target + 1
+
+			instance = &ArgsIndexes{
+				Command:  command,
+				Template: template,
+				Target:   target,
+				Tags:     tags,
+			}
+		}
+	}
+
+	return instance
+}
+
 func CheckArgsLength(min int) {
-	argsLength := len(os.Args[2:])
+	argsIndexes := GetArgsIndexesInstance()
+	argsLength := len(os.Args[argsIndexes.Command+1:])
 
 	if argsLength < min {
 		fmt.Println("Not enough arguments")
@@ -16,7 +57,8 @@ func CheckArgsLength(min int) {
 }
 
 func HandleTemplateInput() (os.FileInfo, string) {
-	templatePath := os.Args[2]
+	argsIndexes := GetArgsIndexesInstance()
+	templatePath := os.Args[argsIndexes.Template]
 
 	directoryInfo, templateError := os.Stat(templatePath)
 
@@ -35,7 +77,8 @@ func HandleTemplateInput() (os.FileInfo, string) {
 }
 
 func HandleTargetInput() string {
-	targetPath := os.Args[3]
+	argsIndexes := GetArgsIndexesInstance()
+	targetPath := os.Args[argsIndexes.Target]
 
 	_, targetError := os.Stat(targetPath)
 	if os.IsNotExist(targetError) {

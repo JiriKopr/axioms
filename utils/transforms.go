@@ -1,7 +1,6 @@
 package utils
 
 import (
-	. "axioms/mappings"
 	. "axioms/node"
 	"fmt"
 	"os"

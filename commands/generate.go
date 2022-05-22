@@ -1,7 +1,6 @@
 package commands
 
 import (
-	. "axioms/mappings"
 	. "axioms/node"
 	. "axioms/structure"
 	. "axioms/utils"

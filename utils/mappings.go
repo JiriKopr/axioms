@@ -1,4 +1,4 @@
-package mappings
+package utils
 
 import (
 	"fmt"
@@ -13,7 +13,8 @@ type TagMappings struct {
 const DEFAULT_TAG = "axiom"
 
 func (mappings *TagMappings) Init() {
-	arguments := os.Args[4:]
+    argsIndexes := GetArgsIndexesInstance()
+	arguments := os.Args[argsIndexes.Tags:]
 
 	mappings.MappedTags = map[string]string{}
 

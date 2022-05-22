@@ -2,6 +2,7 @@ package main
 
 import (
 	. "axioms/commands"
+	. "axioms/utils"
 	"fmt"
 	"os"
 )
@@ -19,7 +20,8 @@ func main() {
 		"generate": GenerateStructureFromTemplateCommand,
 	}
 
-	inputtedCommand := os.Args[1]
+	argsIndexes := GetArgsIndexesInstance()
+	inputtedCommand := os.Args[argsIndexes.Command]
 	selectedCommand, exists := commands[inputtedCommand]
 
 	if !exists {
