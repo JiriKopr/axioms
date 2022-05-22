@@ -9,12 +9,12 @@ import (
 	"os"
 )
 
-// TODO: Get mappings from Args
+// TODO: Change templates structuring to be native file structure -> allows autocompletion
 // TODO: Add option to list all variable inputs
 func main() {
 	argsLength := len(os.Args[1:])
 
-	if argsLength < 2 {
+	if argsLength < 3 {
 		fmt.Println("Not enough arguments")
 		os.Exit(1)
 	}
