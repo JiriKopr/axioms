@@ -45,18 +45,24 @@ func writeLines(file *os.File, fileNode *FileNode, mappings TagMappings) {
 	writer.Flush()
 }
 
-func getTagsAndModsFromString(value string) []string {
+func getTagsFromString(value string) []string {
 
 	lineReg := GetTagsAndModsRegexp()
 
-	return lineReg.FindAllString(value, -1)
+	foundTagsAndMods := lineReg.FindAllString(value, -1)
+
+	return Map(foundTagsAndMods, func(tagAndMod string) string {
+		tag, _ := GetTagAndMod(tagAndMod)
+
+		return tag
+	})
 }
 
-func getAllTagsAndModsFromLines(lines []*Line) []string {
+func getAllTagsFromLines(lines []*Line) []string {
 	tagsAndModsSet := NewSet[string]()
 
 	for _, line := range lines {
-		lineTags := getTagsAndModsFromString(line.Content)
+		lineTags := getTagsFromString(line.Content)
 
 		for _, tag := range lineTags {
 			tagsAndModsSet.Add(tag)

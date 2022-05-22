@@ -83,7 +83,7 @@ func TransformString(value string, mappings TagMappings) string {
 
 	transformedValue := lineReg.ReplaceAllStringFunc(value, func(match string) string {
 
-		tagName, modificator := getTagAndMod(match)
+		tagName, modificator := GetTagAndMod(match)
 
 		matchedValue, tagMapExists := mappings.MappedTags[tagName]
 
@@ -102,7 +102,7 @@ func TransformNodeName(node *Node, mappings TagMappings) string {
 	return TransformString(node.Info.Name(), mappings)
 }
 
-func getTagAndMod(value string) (string, string) {
+func GetTagAndMod(value string) (string, string) {
 	replaceReg := regexp.MustCompile(`\w+(?:\s*\|\s*\w+)?`)
 
 	nameWithMods := replaceReg.FindString(value)

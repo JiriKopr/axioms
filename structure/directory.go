@@ -9,6 +9,8 @@ import (
 	"os"
 )
 
+
+
 func WalkDir(dirInfo DirInfo) {
 	currentPath := dirInfo.Path
 	parentNode := dirInfo.ParentNode
@@ -83,21 +85,21 @@ func CreateStructure(targetStructure TargetStructure) {
 	}
 }
 
-func GetAllDirectoryTagsAndMods(dirNode *DirNode, tagsSet *Set[string]) []string {
+func GetAllDirectoryTags(dirNode *DirNode, tagsSet *Set[string]) []string {
 	for _, fileNode := range dirNode.Files {
-		fileTagsAndMods := getAllTagsAndModsFromLines(fileNode.Lines)
-		fileNameTagsAndMods := getTagsAndModsFromString(fileNode.Node.Info.Name())
+		fileTags := getAllTagsFromLines(fileNode.Lines)
+		fileNameTags := getTagsFromString(fileNode.Node.Info.Name())
 
-		tagsSet.AddAll(fileTagsAndMods)
-		tagsSet.AddAll(fileNameTagsAndMods)
+		tagsSet.AddAll(fileTags)
+		tagsSet.AddAll(fileNameTags)
 	}
 
 	for _, subDir := range dirNode.Subdirs {
-		dirNameTagsAndMods := getTagsAndModsFromString(dirNode.Node.Info.Name())
+		dirNameTags := getTagsFromString(dirNode.Node.Info.Name())
 
-		tagsSet.AddAll(dirNameTagsAndMods)
+		tagsSet.AddAll(dirNameTags)
 
-		GetAllDirectoryTagsAndMods(subDir, tagsSet)
+		GetAllDirectoryTags(subDir, tagsSet)
 	}
 
 	return tagsSet.Values()

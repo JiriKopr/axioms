@@ -13,7 +13,7 @@ type TagMappings struct {
 const DEFAULT_TAG = "axiom"
 
 func (mappings *TagMappings) Init() {
-	arguments := os.Args[3:]
+	arguments := os.Args[4:]
 
 	mappings.MappedTags = map[string]string{}
 
