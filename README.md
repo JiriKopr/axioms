@@ -50,7 +50,9 @@ Allowed names for tags have format `[a-zA-Z0-9]{1,}`
 
 ### Modifiers
 
-You can use modifiers with your tags. They will transform passed value into provided case. `[ axiom | pascalcase ]`
+You can use modifiers with your tags. They will transform passed value into provided case. 
+
+```[ axiom | pascalcase ]```
 
 Available modifiers:
 - `pascalcase` -> pascalCase
