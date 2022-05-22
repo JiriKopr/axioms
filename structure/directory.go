@@ -10,7 +10,7 @@ import (
 )
 
 func WalkDir(dirInfo DirInfo) {
-	currentPath := dirInfo.Path + "/" + dirInfo.Info.Name()
+	currentPath := dirInfo.Path
 	parentNode := dirInfo.ParentNode
 
 	items, _ := ioutil.ReadDir(currentPath)
@@ -20,6 +20,8 @@ func WalkDir(dirInfo DirInfo) {
 			Info: item,
 		}
 
+		itemPath := fmt.Sprintf("%s/%s", currentPath, item.Name())
+
 		if item.IsDir() {
 			dirNode := DirNode{
 				Node: newNode,
@@ -27,7 +29,7 @@ func WalkDir(dirInfo DirInfo) {
 
 			parentNode.Subdirs = append(parentNode.Subdirs, &dirNode)
 
-			WalkDir(DirInfo{Path: currentPath, Info: item, ParentNode: &dirNode})
+			WalkDir(DirInfo{Path: itemPath, Info: item, ParentNode: &dirNode})
 			continue
 		}
 
@@ -38,7 +40,7 @@ func WalkDir(dirInfo DirInfo) {
 
 		parentNode.Files = append(parentNode.Files, &fileNode)
 
-		lines := loadFileContent(currentPath + "/" + item.Name())
+		lines := loadFileContent(itemPath)
 
 		fileNode.Lines = append(fileNode.Lines, lines[:]...)
 	}
