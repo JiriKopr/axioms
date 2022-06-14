@@ -4,7 +4,7 @@ Code generator written in Go. Generates files and directory structure based on p
 
 It replaces any `[ variable ]` in files, file names or directory names with provided text.
 
-![combine_images](https://user-images.githubusercontent.com/28316931/169703456-c5c627ad-c6ff-4e8c-b6bd-2ceaf1dc9193.jpg)
+![combine/_images](https://user-images.githubusercontent.com/28316931/169703456-c5c627ad-c6ff-4e8c-b6bd-2ceaf1dc9193.jpg)
 
 ## Usage
 
